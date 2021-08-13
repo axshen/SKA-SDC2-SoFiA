@@ -2,7 +2,7 @@
 
 ## Overview
 
-This reporsitory contains information, scripts and setup files in relation to the participation of team “SoFiA” in the **SKA Science Data Challenge 2** which closed on 31 July 2021. Our team used the **Source Finding Application** (SoFiA) development version 2.3.1, dated 22 July 2021, which is available for download from [GitHub](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33).
+This reporsitory contains information, scripts and setup files in relation to the participation of team “SoFiA” in the [SKA Science Data Challenge 2](https://sdc2.astronomers.skatelescope.org/) which closed on 31 July 2021. Our team used the **Source Finding Application** (SoFiA) development version 2.3.1, dated 22 July 2021, which is available for download from [GitHub](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33).
 
 ## Running SoFiA
 
@@ -89,3 +89,12 @@ The following people have contributed to the SDC2 team “SoFiA”:
 * Dave Pallot
 * Paolo Serra
 * Austin Shen
+
+
+## Resources
+
+* [SKA Science Data Challenge 2](https://sdc2.astronomers.skatelescope.org/)
+* [SDC2 scoring service utilities](https://pypi.org/project/ska-sdc2-scoring-utils/)
+* [SoFiA 2](https://github.com/SoFiA-Admin/SoFiA-2/)
+* [SoFiA-X](https://github.com/AusSRC/SoFiAX)
+* [Topcat](http://www.star.bris.ac.uk/~mbt/topcat/)
