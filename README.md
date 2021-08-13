@@ -6,7 +6,7 @@ This reporsitory contains information, scripts and setup files in relation to th
 
 ## Running SoFiA
 
-All of the configuration files required to run SoFiA on the full data cube are located in the `sofia` folder. It is assumed that 80 instances of SoFiA are run in parallel on an HPC cluster with adequate resources and the Slurm workload manager available. Each instance of SoFiA requires 27 GB of RAM and ideally 8 parallel threads.
+All of the configuration files required to run SoFiA on the full data cube are located in the `sofia` folder. It is assumed that **80 instances** of SoFiA are run in parallel on an **HPC cluster** with adequate resources and the **Slurm workload manager** available. Each instance of SoFiA requires 27 GB of RAM and ideally 8 parallel threads.
 
 In order to launch the SoFiA run, all files contained in the folder `sofia` must be copied into the directory where the SDC2 data cube (`sky_full_v2.fits`) is located. It is further assumed that SoFiA is installed and can be launched with the command `sofia`. SoFiA can then be executed by simply running the
 
@@ -32,24 +32,28 @@ SoFiA-X is publicly available for download from [GitHub](https://github.com/AusS
 
 ### Alternative 2: Merging Catalogues With Python + Topcat
 
-Another option of merging the output catalogues from the individual SoFiA instances is to use a combination of Python scripts and functionality provided by [Topcat](http://www.star.bris.ac.uk/~mbt/topcat/). This does not require the use of SoFiA-X and may therefore be the preferred method for most users. A Python script for concatenating the individual output catalogue files is available in `scripts/concatenate_catalogues.py`. This script can simply be copied into the same directory where the indivual output catalogues are located and then be launched to concatenate all 80 catalogues into a single output catalogue named `merged_catalogue.xml`.
+Another option of merging the output catalogues from the individual SoFiA instances is to use a combination of Python scripts and functionality provided by [Topcat](http://www.star.bris.ac.uk/~mbt/topcat/). This does not require the use of SoFiA-X and may therefore be the preferred method for most users. A Python script for **concatenating** the individual output catalogue files is available in `scripts/concatenate_catalogues.py`. This script can simply be copied into the same directory where the indivual output catalogues are located and then be launched via
 
-The merged catalogue can be loaded into Topcat to remove any potential duplicate detections from regions of overlap between individual instances.
+```
+python concatenate_catalogues.py
+```
+
+to concatenate all 80 catalogues into a single output catalogue named `merged_catalogue.xml`. The merged catalogue can be loaded into Topcat to remove any potential **duplicate detections** from regions of overlap between individual instances.
 
 ```
 topcat merged_catalogue.xml
 ```
 
-Once loaded, the first step will be to discard all detections that are cut off at the spatial or spectral boundary of a region by retaining only those detections with a quality flag value of 0. This can be achieved by creating a new row subset with the following settings:
+Once loaded, the first step will be to discard all detections that are **cut off** at the spatial or spectral boundary of a region by retaining only those detections with a quality flag value of 0. This can be achieved by creating a new **row subset** in Topcat with the following settings:
 
 * Subset Name: `clean`
 * Expression: `flag < 1`
 
-Next, we need to select the new subset in the Topcat main window by setting:
+Next, we need to select the new subset in the Topcat **main window** by setting:
 
 * Row Subset: `clean`
 
-The remaining sources can then be cross-matched using Topcat’s “Internal Match” algorithm with the following settings:
+The remaining sources can then be cross-matched using Topcat’s **Internal Match** algorithm with the following settings:
 
 * Algorithm: Sky + X
 * Max Error: `10.5` (arcsec)
@@ -60,20 +64,22 @@ The remaining sources can then be cross-matched using Topcat’s “Internal Mat
 * X column: `freq`
 * Action: Eliminate All But First of Each Group
 
-This should create a new table named `match(1)` with all duplicate detections removed. The new table can now be saved again in VOTable format under a new name, for example `merged_catalogue_clean.xml`.
+This should create a new table named `match(1)` with all duplicate detections removed. The new table can now be **saved** again in **VOTable format** under a new name, for example `merged_catalogue_clean.xml`.
 
 ### Parameter Conversion
 
-In the last step, the merged SoFiA 2 output catalogue must be converted into the format expected by the SDC2 scoring service. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported can be found in the header of the script. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
+In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported can be found in the header of the script. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
 
 ```
 ./physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
 ```
 
-This will produce a final catalogue containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be uploaded to the scoring service using the command `sdc2-score create sdc2_catalogue.dat`.
+This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be uploaded to the **scoring service** using the command `sdc2-score create sdc2_catalogue.dat`.
 
 
 ## Team Members
+
+The following people have contributed to the SDC2 team “SoFiA”:
 
 * Kelley Hess
 * Thijs van der Hulst
