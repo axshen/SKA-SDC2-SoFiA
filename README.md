@@ -33,7 +33,33 @@ SoFiA-X is publicly available for download from [GitHub](https://github.com/AusS
 
 Another option of merging the output catalogues from the individual SoFiA instances is to use a combination of Python scripts and functionality provided by Topcat. A Python script for concatenating the individual output catalogue files is available in `scripts/concatenate_catalogues.py`. This script can simply be copied into the same directory where the indivual output catalogues are located and then be launched to concatenate all 80 catalogues into a single output catalogue named `merged_catalogue.xml`.
 
-Once completed, the merged catalogue can be loaded into Topcat to remove any potential duplicate detections from regions of overlap between individual instances.
+The merged catalogue can be loaded into Topcat to remove any potential duplicate detections from regions of overlap between individual instances.
+
+```
+topcat merged_catalogue.xml
+```
+
+Once loaded, the first step will be to discard all detections that are cut off at the spatial or spectral boundary of a region by retaining only those detections with a quality flag value of 0. This can be achieved by creating a new row subset with the following settings:
+
+* Subset Name: `clean`
+* Expression: `flag < 1`
+
+Next, we need to select the new subset in the Topcat main window by setting:
+
+* Row Subset: `clean`
+
+The remaining sources can then be cross-matched using Topcat’s “Internal Match” algorithm with the following settings:
+
+* Algorithm: Sky + X
+* Max Error: `10.5` (arcsec)
+* Error in X: `1.2e+6`
+* Table: `merged_catalogue.xml`
+* RA column: `ra` (degrees)
+* Dec column: `dec` (degrees)
+* X column: `freq`
+* Action: Eliminate All But First of Each Group
+
+This should create a new table named `match(1)` with all duplicate detections removed. The new table can now be saved again in VOTable format under a new name, for example `merged_catalogue_clean.xml`.
 
 ## Team Members
 
