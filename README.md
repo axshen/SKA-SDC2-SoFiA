@@ -14,7 +14,7 @@ In order to launch the SoFiA run, all files contained in the folder `sofia` must
 run_sofia.sh
 ```
 
-shell script. This will use Slurm to create 80 batch jobs, each of which is running on a smaller region of the data cube of about 11.8 GB in size. Depending on the specification of the HVC cluster and available resources, this could take several hours to complete. Once all instances are finished, the output catalogues and image products from each run should have been written into the same directory. The `output.directory` setting in the individual SoFiA parameter files can be used to define a different output directory if desired.
+shell script. This will use Slurm to create **80 batch jobs**, each of which is running on a smaller region of the data cube of about 11.8 GB in size. Depending on the specifications of the HVC cluster and available resources, this could take several hours to complete. Once all instances are finished, the output catalogues and image products from each run should have been written into the same directory. The `output.directory` setting in the individual SoFiA parameter files can be used to define a different output directory if desired.
 
 
 ## Post-processing
@@ -64,23 +64,24 @@ The remaining sources can then be cross-matched using Topcat’s **Internal Matc
 * X column: `freq`
 * Action: Eliminate All But First of Each Group
 
-This should create a new table named `match(1)` with all duplicate detections removed. The new table can now be **saved** again in **VOTable format** under a new name, for example `merged_catalogue_clean.xml`.
+This should create a new table named `match(1)` with all duplicate detections removed. Duplicates are here defined as detections that are located within 10.5 arcsec (~1.5 beam sizes) and 1.2 MHz (~380 km/s at redshift 0.5) of each other. The new table can now be **saved** again in **VOTable format** under a new name, for example `merged_catalogue_clean.xml`.
 
 ### Parameter Conversion
 
-In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported can be found in the header of the script. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
+In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source code. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
 
 ```
 ./physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
 ```
 
-This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be uploaded to the **scoring service** using the command `sdc2-score create sdc2_catalogue.dat`.
+This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be supplied to the **scoring service** using the standard command `sdc2-score create sdc2_catalogue.dat` (assuming that the [SDC2 scoring service scripts](https://pypi.org/project/ska-sdc2-scoring-utils/) are installed).
 
 
 ## Team Members
 
 The following people have contributed to the SDC2 team “SoFiA”:
 
+* Tobias Westmeier (chair)
 * Kelley Hess
 * Thijs van der Hulst
 * Russell Jurek
@@ -88,4 +89,3 @@ The following people have contributed to the SDC2 team “SoFiA”:
 * Dave Pallot
 * Paolo Serra
 * Austin Shen
-* Tobias Westmeier (chair)
