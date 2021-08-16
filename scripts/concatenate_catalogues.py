@@ -2,7 +2,7 @@ from astropy.io.votable import parse_single_table, from_table, writeto
 from astropy.table import Table, vstack
 
 print("Loading catalogue 1");
-table = parse_single_table("catalogues/sofia_sdc2_cat.xml").to_table();
+table = parse_single_table("catalogues/sofia_sdc2_001_cat.xml").to_table();
 
 for i in range(2, 81):
 	print("Loading catalogue {:d}".format(i));
