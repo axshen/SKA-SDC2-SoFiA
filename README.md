@@ -6,7 +6,7 @@ This reporsitory contains information, scripts and setup files in relation to th
 
 ## Running SoFiA
 
-All of the configuration files required to run SoFiA on the full data cube are located in the `sofia` folder. It is assumed that **80 instances** of SoFiA are run in parallel on an **HPC cluster** with adequate resources and the **Slurm workload manager** available. Each instance of SoFiA requires 27 GB of RAM and ideally 8 parallel threads.
+All of the configuration files required to run SoFiA on the full SDC2 data cube are located in the `sofia` folder. It is assumed that **80 instances** of SoFiA are run in parallel on an **HPC cluster** with adequate resources and the **Slurm workload manager** available. Each instance of SoFiA requires 27 GB of RAM and ideally 8 parallel threads.
 
 In order to launch the SoFiA run, all files contained in the folder `sofia` must be copied into the directory where the SDC2 data cube (`sky_full_v2.fits`) is located. It is further assumed that SoFiA is installed and can be launched with the command `sofia`. SoFiA can then be executed by simply running the
 
