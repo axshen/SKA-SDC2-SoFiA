@@ -90,6 +90,9 @@ The following people have contributed to the SDC2 team “SoFiA”:
 * Paolo Serra
 * Austin Shen
 
+
+## Acknowledgements
+
 We acknowledge support from the [Australian SKA Regional Centre](https://aussrc.org/) (AusSRC) and the [Pawsey Supercomputing Centre](https://pawsey.org.au/) in Perth, Western Australia.
 
 
