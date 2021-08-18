@@ -74,7 +74,7 @@ In the last step, the merged SoFiA 2 output catalogue must be **converted** into
 python physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
 ```
 
-This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be supplied to the **scoring service** using the standard command `sdc2-score create sdc2_catalogue.dat` (assuming that the [SDC2 scoring service scripts](https://pypi.org/project/ska-sdc2-scoring-utils/) are installed).
+This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be uploaded to the **scoring service** using the standard command `sdc2-score create sdc2_catalogue.dat` (assuming that the [SDC2 scoring service scripts](https://pypi.org/project/ska-sdc2-scoring-utils/) are installed and set up correctly).
 
 
 ## Team Members
@@ -89,6 +89,8 @@ The following people have contributed to the SDC2 team “SoFiA”:
 * Dave Pallot
 * Paolo Serra
 * Austin Shen
+
+We acknowledge support from the [Australian SKA Regional Centre](https://aussrc.org/) (AusSRC) and the [Pawsey Supercomputing Centre](https://pawsey.org.au/) in Perth, Western Australia.
 
 
 ## Resources
