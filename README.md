@@ -71,7 +71,7 @@ This should create a new table named `match(1)` with all duplicate detections re
 In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source file. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
 
 ```
-./physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
+python physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
 ```
 
 This will produce a **final catalogue** containing the parameters to be supplied to the SDC2 in the format required by the scoring service. This final catalogue can then be supplied to the **scoring service** using the standard command `sdc2-score create sdc2_catalogue.dat` (assuming that the [SDC2 scoring service scripts](https://pypi.org/project/ska-sdc2-scoring-utils/) are installed).
