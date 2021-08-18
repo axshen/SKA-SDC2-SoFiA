@@ -2,7 +2,7 @@
 
 ## Overview
 
-This reporsitory contains information, scripts and setup files in relation to the participation of team “SoFiA” in the [SKA Science Data Challenge 2](https://sdc2.astronomers.skatelescope.org/) which closed on 31 July 2021. Our team used the **Source Finding Application** (SoFiA) development version 2.3.1, dated 22 July 2021, which is available for download from [GitHub](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33).
+This reporsitory contains information, scripts and setup files in relation to the participation of team “SoFiA” in the [SKA Science Data Challenge 2](https://sdc2.astronomers.skatelescope.org/) which closed on 31 July 2021. Our team used the **Source Finding Application** ([SoFiA](https://github.com/SoFiA-Admin/SoFiA-2/)) development version 2.3.1, dated 22 July 2021, which is available for download from [GitHub](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33). The purpose of this repository is to provide a copy of the SoFiA setup files used in the SDC2 in addition to a couple of Python scripts that our team used in the postprocessing of the SoFiA output.
 
 ## Running SoFiA
 
@@ -68,7 +68,7 @@ This should create a new table named `match(1)` with all duplicate detections re
 
 ### Parameter Conversion
 
-In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source code. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
+In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source file. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
 
 ```
 ./physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
