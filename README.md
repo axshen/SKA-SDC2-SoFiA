@@ -68,7 +68,7 @@ This should create a new table named `match(1)` with all duplicate detections re
 
 ### Parameter Conversion
 
-In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source file. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
+In the last step, the merged SoFiA 2 output catalogue must be **converted** into the format expected by the **SDC2 scoring service**. For this purpose, several source parameters will need to be converted from observational to physical units. This can be achieved by running the Python script provided in `scripts/physical_parameter_conversion_v0.2.py`. Information on the different command-line options supported by the script can be found in the header of the source file. In addition to parameter conversion, the script will also apply statistical **noise bias corrections** for several parameters (flux, line width and disc size) which were derived from the 40 GB development data cube. For the final catalogue uploaded to the SDC2 scoring service, the following settings were used:
 
 ```
 python physical_parameter_conversion_v0.2.py merged_catalogue_clean.xml 0.1 0.0 700 > sdc2_catalogue.dat
