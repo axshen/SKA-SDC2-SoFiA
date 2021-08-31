@@ -34,7 +34,7 @@ In order to launch the SoFiA run, all files contained in the folder `sofia` must
 run_sofia.sh
 ```
 
-shell script. This will use Slurm to create **80 batch jobs**, each of which is running on a smaller region of the data cube of about 11.8 GB in size. Depending on the specifications of the HVC cluster and available resources, this could take several hours to complete. Once all instances are finished, the output catalogues and image products from each run should have been written into the same directory. The `output.directory` setting in the individual SoFiA parameter files can be used to define a different output directory if desired.
+shell script. This will use Slurm to create **80 batch jobs**, each of which is running on a smaller region of the data cube of about 11.8 GB in size. Depending on the specifications of the HPC cluster and available resources, this could take several hours to complete. Once all instances are finished, the output catalogues and image products from each run should have been written into the same directory. The `output.directory` setting in the individual SoFiA parameter files can be used to define a different output directory if desired.
 
 
 ## Post-processing
