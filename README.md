@@ -8,6 +8,22 @@ This reporsitory contains information, scripts and setup files in relation to th
 
 more specifically development version 2.3.1, dated 22 July 2021, which is available for download from [GitHub](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33). The purpose of this repository is to provide a copy of the SoFiA setup files used in the SDC2 in addition to a couple of Python scripts that our team used in the postprocessing of the SoFiA output.
 
+
+## Prerequisites
+
+The following software packages are required for reproducing the source catalogue created by our team:
+
+* [SoFiA v2.3.1](https://github.com/SoFiA-Admin/SoFiA-2/tree/11ff5fb01a8e3061a79d47b1ec3d353c429adf33)
+* [TOPCAT v4.7](http://www.star.bris.ac.uk/~mbt/topcat/)
+* [Python v3.8.2](https://www.python.org/)
+* [NumPy v1.17.4](https://numpy.org/)
+* [Astropy v4.0](https://www.astropy.org/)
+
+Software versions other than the ones listed here may work as well, but have not been tested. Each of these software packages may have their own dependencies; we refer to the installation instructions of the respective package for details.
+
+In addition, access to an HPC environment with adequate resources and the ability to launch Slurm jobs is required.
+
+
 ## Running SoFiA
 
 All of the configuration files required to run SoFiA on the full SDC2 data cube are located in the `sofia` folder. It is assumed that **80 instances** of SoFiA are run in parallel on an **HPC cluster** with adequate resources and the **Slurm workload manager** available. Each instance of SoFiA requires 27 GB of RAM and ideally 8 parallel threads.
@@ -26,7 +42,7 @@ shell script. This will use Slurm to create **80 batch jobs**, each of which is 
 Once the SoFiA run is complete, several post-processing steps will be required to turn the 80 output catalogues from the individual instances into a single catalogue listing the specific source parameters required by the SDC2 scoring service. Two alternative options are available for merging the catalogues:
 
 1. SoFiA-X
-2. Python + Topcat
+2. Python + TOPCAT
 
 ### Alternative 1: Merging Catalogues With SoFiA-X
 
@@ -34,30 +50,30 @@ SoFiA-X is a wrapper around SoFiA 2 that can be used to upload the output files 
 
 SoFiA-X is publicly available for download from [GitHub](https://github.com/AusSRC/SoFiAX). Additional information on how to install and use SoFiA-X is available in the README file in the GitHub repository. As setting up SoFiA-X is non-trivial, we will refrain from providing further information here and instead refer the reader to the SoFiA-X repository for further instructions.
 
-### Alternative 2: Merging Catalogues With Python + Topcat
+### Alternative 2: Merging Catalogues With Python + TOPCAT
 
-Another option of merging the output catalogues from the individual SoFiA instances is to use a combination of Python scripts and functionality provided by [Topcat](http://www.star.bris.ac.uk/~mbt/topcat/). This does not require the use of SoFiA-X and may therefore be the preferred method for most users. A Python script for **concatenating** the individual output catalogue files is available in `scripts/concatenate_catalogues.py`. This script can simply be copied into the same directory where the indivual output catalogues are located and then be launched via
+Another option of merging the output catalogues from the individual SoFiA instances is to use a combination of Python scripts and functionality provided by [TOPCAT](http://www.star.bris.ac.uk/~mbt/topcat/). This does not require the use of SoFiA-X and may therefore be the preferred method for most users. A Python script for **concatenating** the individual output catalogue files is available in `scripts/concatenate_catalogues.py`. This script can simply be copied into the same directory where the indivual output catalogues are located and then be launched via
 
 ```
 python concatenate_catalogues.py
 ```
 
-to concatenate all 80 catalogues into a single output catalogue named `merged_catalogue.xml`. The merged catalogue can be loaded into Topcat to remove any potential **duplicate detections** from regions of overlap between individual instances.
+to concatenate all 80 catalogues into a single output catalogue named `merged_catalogue.xml`. The merged catalogue can be loaded into TOPCAT to remove any potential **duplicate detections** from regions of overlap between individual instances.
 
 ```
 topcat merged_catalogue.xml
 ```
 
-Once loaded, the first step will be to discard all detections that are **cut off** at the spatial or spectral boundary of a region by retaining only those detections with a quality flag value of 0. This can be achieved by creating a new **row subset** in Topcat with the following settings:
+Once loaded, the first step will be to discard all detections that are **cut off** at the spatial or spectral boundary of a region by retaining only those detections with a quality flag value of 0. This can be achieved by creating a new **row subset** in TOPCAT with the following settings:
 
 * Subset Name: `clean`
 * Expression: `flag < 1`
 
-Next, we need to select the new subset in the Topcat **main window** by setting:
+Next, we need to select the new subset in the TOPCAT **main window** by setting:
 
 * Row Subset: `clean`
 
-The remaining sources can then be cross-matched using Topcat’s **Internal Match** algorithm with the following settings:
+The remaining sources can then be cross-matched using TOPCAT’s **Internal Match** algorithm with the following settings:
 
 * Algorithm: Sky + X
 * Max Error: `10.5` (arcsec)
@@ -106,4 +122,4 @@ We acknowledge support from the [Australian SKA Regional Centre](https://aussrc.
 * [SDC2 scoring service utilities](https://pypi.org/project/ska-sdc2-scoring-utils/)
 * [SoFiA 2](https://github.com/SoFiA-Admin/SoFiA-2/)
 * [SoFiA-X](https://github.com/AusSRC/SoFiAX)
-* [Topcat](http://www.star.bris.ac.uk/~mbt/topcat/)
+* [TOPCAT](http://www.star.bris.ac.uk/~mbt/topcat/)
